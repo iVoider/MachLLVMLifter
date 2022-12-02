@@ -45,6 +45,12 @@ extern "C" {
 // Declare all of the available TargetMCA initialization functions.
 #define LLVM_TARGETMCA(TargetName) void LLVMInitialize##TargetName##TargetMCA();
 #include "llvm/Config/TargetMCAs.def"
+
+// Declare all of the available target DC initialization functions.
+#define LLVM_TARGETDC(TargetName) \
+void LLVMInitialize##TargetName##TargetDC();
+#include "llvm/Config/TargetDC.def"
+
 }
 
 namespace llvm {
@@ -80,6 +86,11 @@ namespace llvm {
 #define LLVM_TARGET(TargetName) LLVMInitialize##TargetName##TargetMC();
 #include "llvm/Config/Targets.def"
   }
+
+inline void InitializeAllTargetDCs() {
+  #define LLVM_TARGETDC(TargetName) LLVMInitialize##TargetName##TargetDC();
+  #include "llvm/Config/TargetDC.def"
+}
 
   /// InitializeAllAsmPrinters - The main program should call this function if
   /// it wants all asm printers that LLVM is configured to support, to make them

@@ -87,6 +87,11 @@ public:
   /// Customize the printer according to a command line option.
   /// @return true if the option is recognized and applied.
   virtual bool applyTargetSpecificCLOption(StringRef Opt) { return false; }
+  
+  void printMachineOperand(const MCInst *MI, unsigned OpType,
+                                          unsigned OpNo,
+                                          const MCSubtargetInfo &STI,
+                                          raw_ostream &OS);
 
   /// Specify a stream to emit comments to.
   void setCommentStream(raw_ostream &OS) { CommentStream = &OS; }

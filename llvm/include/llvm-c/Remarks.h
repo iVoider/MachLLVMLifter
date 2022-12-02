@@ -140,13 +140,6 @@ extern LLVMRemarkDebugLocRef LLVMRemarkArgGetDebugLoc(LLVMRemarkArgRef Arg);
 typedef struct LLVMRemarkOpaqueEntry *LLVMRemarkEntryRef;
 
 /**
- * Free the resources used by the remark entry.
- *
- * \since REMARKS_API_VERSION=0
- */
-extern void LLVMRemarkEntryDispose(LLVMRemarkEntryRef Remark);
-
-/**
  * The type of the remark. For example, it can allow users to only keep the
  * missed optimizations from the compiler.
  *

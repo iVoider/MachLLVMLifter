@@ -10,6 +10,7 @@
 #include "llvm/MC/TargetRegistry.h"
 
 using namespace llvm;
+
 Target &llvm::getTheAArch64leTarget() {
   static Target TheAArch64leTarget;
   return TheAArch64leTarget;

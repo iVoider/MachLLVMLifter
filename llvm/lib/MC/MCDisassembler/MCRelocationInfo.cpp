@@ -28,3 +28,8 @@ MCRelocationInfo *llvm::createMCRelocationInfo(const Triple &TT,
                                                MCContext &Ctx) {
   return new MCRelocationInfo(Ctx);
 }
+
+const MCExpr *
+MCRelocationInfo::createExprForRelocation(object::RelocationRef Rel) {
+   return nullptr;
+ }

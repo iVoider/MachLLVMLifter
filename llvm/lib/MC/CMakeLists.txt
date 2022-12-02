@@ -74,10 +74,13 @@ add_llvm_component_library(LLVMMC
   ${LLVM_MAIN_INCLUDE_DIR}/llvm/MC
 
   LINK_COMPONENTS
+  DC
   Support
   BinaryFormat
   DebugInfoCodeView
+  MCAnalysis
   )
 
 add_subdirectory(MCParser)
 add_subdirectory(MCDisassembler)
+add_subdirectory(MCAnalysis)

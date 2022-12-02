@@ -319,7 +319,7 @@ public:
   // TODO: remove non-AtIndex versions of these methods.
   /// adds the attribute to the list of attributes.
   void addAttributeAtIndex(unsigned i, Attribute Attr);
-
+                                            
   /// Add function attributes to this function.
   void addFnAttr(Attribute::AttrKind Kind);
 
@@ -331,6 +331,15 @@ public:
 
   /// Add function attributes to this function.
   void addFnAttrs(const AttrBuilder &Attrs);
+         
+  // SUSS
+  void setDoesNotAlias(unsigned n) {
+      addFnAttr(Attribute::NoAlias);
+  }
+  
+  void setDoesNotCapture(unsigned n) {
+      addFnAttr(Attribute::NoCapture);
+  }
 
   /// Add return value attributes to this function.
   void addRetAttr(Attribute::AttrKind Kind);

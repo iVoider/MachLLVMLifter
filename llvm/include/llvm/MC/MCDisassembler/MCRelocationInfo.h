@@ -15,6 +15,8 @@
 #ifndef LLVM_MC_MCDISASSEMBLER_MCRELOCATIONINFO_H
 #define LLVM_MC_MCDISASSEMBLER_MCRELOCATIONINFO_H
 
+#include "llvm/Object/ObjectFile.h"
+
 namespace llvm {
 
 class MCContext;
@@ -37,6 +39,7 @@ public:
   /// \returns If possible, an MCExpr corresponding to VariantKind, else 0.
   virtual const MCExpr *createExprForCAPIVariantKind(const MCExpr *SubExpr,
                                                      unsigned VariantKind);
+  virtual const MCExpr *createExprForRelocation(object::RelocationRef Rel);
 };
 
 } // end namespace llvm

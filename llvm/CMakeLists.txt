@@ -884,6 +884,7 @@ set(LLVM_ENUM_ASM_PARSERS "")
 set(LLVM_ENUM_DISASSEMBLERS "")
 set(LLVM_ENUM_TARGETMCAS "")
 set(LLVM_ENUM_EXEGESIS "")
+set(LLVM_ENUM_TARGETDCS "")
 foreach(t ${LLVM_TARGETS_TO_BUILD})
   set( td ${LLVM_MAIN_SRC_DIR}/lib/Target/${t} )
 
@@ -912,6 +913,10 @@ foreach(t ${LLVM_TARGETS_TO_BUILD})
   if( EXISTS ${td}/Disassembler/CMakeLists.txt )
     set(LLVM_ENUM_DISASSEMBLERS
       "${LLVM_ENUM_DISASSEMBLERS}LLVM_DISASSEMBLER(${t})\n")
+  endif()
+  if( EXISTS ${td}/DC/CMakeLists.txt )
+    set(LLVM_ENUM_TARGETDCS
+      "${LLVM_ENUM_TARGETDCS}LLVM_TARGETDC(${t})\n")
   endif()
   if( EXISTS ${td}/MCA/CMakeLists.txt )
     set(LLVM_ENUM_TARGETMCAS
@@ -947,6 +952,10 @@ configure_file(
 configure_file(
   ${LLVM_MAIN_INCLUDE_DIR}/llvm/Config/TargetMCAs.def.in
   ${LLVM_INCLUDE_DIR}/llvm/Config/TargetMCAs.def
+  )
+configure_file(
+  ${LLVM_MAIN_INCLUDE_DIR}/llvm/Config/TargetDCs.def.in
+  ${LLVM_INCLUDE_DIR}/llvm/Config/TargetDC.def
   )
 configure_file(
   ${LLVM_MAIN_INCLUDE_DIR}/llvm/Config/TargetExegesis.def.in

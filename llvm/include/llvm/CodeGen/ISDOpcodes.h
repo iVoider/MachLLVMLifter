@@ -704,6 +704,9 @@ enum NodeType {
   BITREVERSE,
   PARITY,
 
+  // SUSS
+  SABSDIFF, UABSDIFF,
+
   /// Bit counting operators with an undefined result for zero inputs.
   CTTZ_ZERO_UNDEF,
   CTLZ_ZERO_UNDEF,
@@ -942,6 +945,10 @@ enum NodeType {
   /// The return value of (FMINNUM 0.0, -0.0) could be either 0.0 or -0.0.
   FMINNUM,
   FMAXNUM,
+
+  // SUSS
+  FMINNAN,
+  FMAXNAN,
 
   /// FMINNUM_IEEE/FMAXNUM_IEEE - Perform floating-point minimum or maximum on
   /// two values, following the IEEE-754 2008 definition. This differs from

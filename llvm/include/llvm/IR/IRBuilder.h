@@ -1691,6 +1691,10 @@ public:
                        const Twine &Name = "") {
     return CreateAlignedLoad(Ty, Ptr, MaybeAlign(), isVolatile, Name);
   }
+  
+  LoadInst *CreateLoad(Value *Ptr, const Twine &Name = "") {
+      return CreateLoad(Ptr->getType()->getPointerElementType(), Ptr, Name);
+  }
 
   StoreInst *CreateStore(Value *Val, Value *Ptr, bool isVolatile = false) {
     return CreateAlignedStore(Val, Ptr, MaybeAlign(), isVolatile);
@@ -1713,6 +1717,12 @@ public:
       Align = DL.getABITypeAlign(Ty);
     }
     return Insert(new LoadInst(Ty, Ptr, Twine(), isVolatile, *Align), Name);
+  }
+    
+  LoadInst *CreateAlignedLoad(Value *Ptr, MaybeAlign Align,
+                                const Twine &Name = "") {
+      return CreateAlignedLoad(Ptr->getType()->getPointerElementType(), Ptr,
+                               Align, Name);
   }
 
   StoreInst *CreateAlignedStore(Value *Val, Value *Ptr, MaybeAlign Align,
@@ -1765,6 +1775,12 @@ public:
                   Name);
   }
 
+  Value *CreateInBoundsGEP(Value *Ptr, ArrayRef<Value *> IdxList,
+                             const Twine &Name = "") {
+      // SUSS
+      return CreateInBoundsGEP(nullptr, Ptr, IdxList, Name);
+  }
+    
   Value *CreateInBoundsGEP(Type *Ty, Value *Ptr, ArrayRef<Value *> IdxList,
                            const Twine &Name = "") {
     return CreateGEP(Ty, Ptr, IdxList, Name, /* IsInBounds */ true);
@@ -2300,6 +2316,23 @@ public:
     return CreateCall(Callee.getFunctionType(), Callee.getCallee(), Args,
                       OpBundles, Name, FPMathTag);
   }
+
+    // Deprecated [opaque pointer types]
+    CallInst *CreateCall(Value *Callee, ArrayRef<Value *> Args = None,
+                         const Twine &Name = "", MDNode *FPMathTag = nullptr) {
+      return CreateCall(
+          cast<FunctionType>(Callee->getType()->getPointerElementType()), Callee,
+          Args, Name, FPMathTag);
+    }
+
+    // Deprecated [opaque pointer types]
+    CallInst *CreateCall(Value *Callee, ArrayRef<Value *> Args,
+                         ArrayRef<OperandBundleDef> OpBundles,
+                         const Twine &Name = "", MDNode *FPMathTag = nullptr) {
+      return CreateCall(
+          cast<FunctionType>(Callee->getType()->getPointerElementType()), Callee,
+          Args, OpBundles, Name, FPMathTag);
+    }
 
   CallInst *CreateConstrainedFPCall(
       Function *Callee, ArrayRef<Value *> Args, const Twine &Name = "",

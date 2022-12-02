@@ -20,6 +20,7 @@ add_llvm_component_library(LLVMObject
   ModuleSymbolTable.cpp
   Object.cpp
   ObjectFile.cpp
+  ObjectiveCFile.cpp
   OffloadBinary.cpp
   RecordStreamer.cpp
   RelocationResolver.cpp
