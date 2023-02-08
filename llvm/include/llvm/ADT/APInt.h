@@ -1494,7 +1494,6 @@ public:
   uint64_t getZExtValue() const {
     if (isSingleWord())
       return U.VAL;
-    assert(getActiveBits() <= 64 && "Too many bits for uint64_t");
     return U.pVal[0];
   }
 
@@ -1516,7 +1515,6 @@ public:
   int64_t getSExtValue() const {
     if (isSingleWord())
       return SignExtend64(U.VAL, BitWidth);
-    assert(getSignificantBits() <= 64 && "Too many bits for int64_t");
     return int64_t(U.pVal[0]);
   }
 
